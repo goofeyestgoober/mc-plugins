@@ -46,11 +46,11 @@ public class ShardV30Main extends ShardV29Main {
     private Player cOwner;
     private final List<Player> cViewers = new ArrayList<>();
     private double eyeX;
-    private double eyeY;
+    double eyeY;
     private double eyeZ;
-    private double lookX;
+    double lookX;
     private double lookY;
-    private double lookZ;
+    double lookZ;
     private BukkitTask spriteTask;
     private ItemDisplay sprite;
     private TextDisplay label;

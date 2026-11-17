@@ -79,17 +79,13 @@ final class ShardV30Fx {
         long var10 = var0.tick;
         var0.rune(var1, var2, var4, var6, var8 * 0.45, 1.55, 22, 16734720, 16765562, 0.8F);
         var0.helix(var1, var2, var4, var6, -var8 * 1.3, 2, 0.8, 2.1, 0.06, 16747008, 16769162, 1.0F, Particle.SMALL_FLAME);
+        horns(var0, var1, var2, var6, var10);
 
-        for (int var12 = 0; var12 < 10; var12++) {
-            double var13 = var8 * 1.4 + var12 * (Math.PI / 5);
-            var0.trans(var1, var2 + Math.cos(var13) * 0.42, var4 + 2.35, var6 + Math.sin(var13) * 0.42, 16738816, 16765562, 0.75F);
-        }
-
-        for (int var21 = 0; var21 < 4; var21++) {
-            double var22 = var8 * 0.8 + var21 * (Math.PI / 2);
-            double var15 = (var10 * 0.05 + var21 * 0.5) % 2.0;
-            double var17 = var2 + Math.cos(var22) * 0.95;
-            double var19 = var6 + Math.sin(var22) * 0.95;
+        for (int var12 = 0; var12 < 4; var12++) {
+            double var13 = var8 * 0.8 + var12 * (Math.PI / 2);
+            double var15 = (var10 * 0.05 + var12 * 0.5) % 2.0;
+            double var17 = var2 + Math.cos(var13) * 0.95;
+            double var19 = var6 + Math.sin(var13) * 0.95;
             var0.trans(var1, var17, var4 + 0.1 + var15, var19, 16734720, 16762954, 0.9F);
             var0.trans(var1, var17, var4 + 0.1 + var15 * 0.9 - 0.12, var19, 16726528, 16757575, 0.6F);
         }
@@ -108,17 +104,13 @@ final class ShardV30Fx {
         long var10 = var0.tick;
         var0.rune(var1, var2, var4, var6, -var8 * 0.5, 1.5, 22, 1820856, 669008, 0.8F);
         var0.helix(var1, var2, var4, var6, var8 * 1.2, 2, 0.7, 2.2, 0.04, 4190944, 403516, 1.0F, Particle.SCULK_SOUL);
+        ears(var0, var1, var2, var6, var10);
 
-        for (int var12 = 0; var12 < 8; var12++) {
-            double var13 = -var8 * 1.3 + var12 * (Math.PI / 4);
-            var0.trans(var1, var2 + Math.cos(var13) * 0.45, var4 + 2.35, var6 + Math.sin(var13) * 0.45, 4190944, 403516, 0.7F);
-        }
-
-        for (int var21 = 0; var21 < 4; var21++) {
-            double var22 = -var8 * 0.7 + var21 * (Math.PI / 2);
-            double var15 = (var10 * 0.04 + var21 * 0.5) % 2.0;
-            double var17 = var2 + Math.cos(var22) * 1.0;
-            double var19 = var6 + Math.sin(var22) * 1.0;
+        for (int var12 = 0; var12 < 4; var12++) {
+            double var13 = -var8 * 0.7 + var12 * (Math.PI / 2);
+            double var15 = (var10 * 0.04 + var12 * 0.5) % 2.0;
+            double var17 = var2 + Math.cos(var13) * 1.0;
+            double var19 = var6 + Math.sin(var13) * 1.0;
             var0.trans(var1, var17, var4 + 0.1 + var15, var19, 2418384, 403516, 0.9F);
             var0.trans(var1, var17, var4 + 0.1 + var15 * 0.9 - 0.12, var19, 1820856, 669008, 0.6F);
         }
@@ -130,5 +122,112 @@ final class ShardV30Fx {
         if (var10 % 6L == 0L) {
             var0.fx(var1, Particle.SCULK_SOUL, var2, var4 + 1.4, var6, 2, 0.5, 0.7, 0.5, 0.03);
         }
+    }
+
+    private static double[] facing(ShardV30Main var0) {
+        double var1 = var0.lookX;
+        double var3 = var0.lookZ;
+        double var5 = Math.sqrt(var1 * var1 + var3 * var3);
+        return var5 < 0.05 ? new double[]{0.0, 1.0} : new double[]{var1 / var5, var3 / var5};
+    }
+
+    private static void horns(ShardV30Main var0, World var1, double var2, double var4, long var6) {
+        double[] var8 = facing(var0);
+        double var9 = -var8[1];
+        double var11 = var8[0];
+        double var13 = var0.eyeY + 0.12;
+
+        for (byte var15 = -1; var15 <= 1; var15 += 2) {
+            double var16 = 0.0;
+            double var18 = 0.0;
+            double var20 = 0.0;
+
+            for (int var22 = 0; var22 <= 14; var22++) {
+                double var23 = var22 / 14.0;
+                double var25 = 0.2 + 0.34 * Math.sin(var23 * Math.PI * 0.75);
+                double var27 = 0.72 * var23;
+                double var29 = 0.06 - 0.2 * var23 * var23;
+                double var31 = var2 + var9 * var15 * var25 + var8[0] * var29;
+                double var33 = var4 + var11 * var15 * var25 + var8[1] * var29;
+                double var35 = var13 + var27;
+                float var37 = (float)(1.8 - 1.1 * var23);
+                boolean var38 = var23 > 0.7;
+                int var39 = var38 ? 16738816 : 9048064;
+                int var40 = var38 ? 16765562 : 16730624;
+                var0.trans(var1, var31, var35, var33, var39, var40, var37);
+                if (var23 < 0.65) {
+                    var0.trans(var1, var31 + var8[0] * 0.07, var35, var33 + var8[1] * 0.07, 9048064, 16726528, var37 * 0.8F);
+                }
+
+                if (var22 == 14) {
+                    var16 = var31;
+                    var18 = var35;
+                    var20 = var33;
+                }
+            }
+
+            if (var6 % 4L == 0L) {
+                var0.fx(var1, Particle.SMALL_FLAME, var16, var18 + 0.05, var20, 1, 0.02, 0.02, 0.02, 0.005);
+            }
+        }
+    }
+
+    private static void ears(ShardV30Main var0, World var1, double var2, double var4, long var6) {
+        double[] var8 = facing(var0);
+        double var9 = -var8[1];
+        double var11 = var8[0];
+        double var13 = var0.eyeY;
+        double[] var15 = new double[]{0.28, 0.14};
+        double[] var16 = new double[]{1.1, 0.52};
+        double[] var17 = new double[]{0.28, -0.26};
+        double[] var18 = new double[]{0.72, 0.52};
+        double[] var19 = new double[]{0.92, 0.02};
+
+        for (byte var20 = -1; var20 <= 1; var20 += 2) {
+            for (int var21 = 0; var21 <= 9; var21++) {
+                double var22 = var21 / 9.0;
+                double var24 = 1.0 - var22;
+                double var26 = var24 * var24 * var15[0] + 2.0 * var24 * var22 * var18[0] + var22 * var22 * var16[0];
+                double var28 = var24 * var24 * var15[1] + 2.0 * var24 * var22 * var18[1] + var22 * var22 * var16[1];
+                double var30 = var24 * var24 * var16[0] + 2.0 * var24 * var22 * var19[0] + var22 * var22 * var17[0];
+                double var32 = var24 * var24 * var16[1] + 2.0 * var24 * var22 * var19[1] + var22 * var22 * var17[1];
+                ear(var0, var1, var2, var4, var9, var11, var8, var13, var20, var26, var28, 1.0F, 4190944, 403516);
+                if (var21 > 0) {
+                    ear(var0, var1, var2, var4, var9, var11, var8, var13, var20, var30, var32, 1.0F, 4190944, 403516);
+                }
+            }
+
+            for (int var34 = 1; var34 <= 6; var34++) {
+                double var36 = var34 / 6.0;
+                double var37 = 0.28 + (var16[0] - 0.28) * var36;
+                double var38 = -0.06 + (var16[1] + 0.06) * var36;
+                ear(var0, var1, var2, var4, var9, var11, var8, var13, var20, var37, var38, 0.7F, 1820856, 669008);
+            }
+
+            if (var6 % 4L == 0L) {
+                double var35 = var2 + var9 * var20 * var16[0] - var8[0] * 0.05;
+                double var23 = var4 + var11 * var20 * var16[0] - var8[1] * 0.05;
+                var0.fx(var1, Particle.SCULK_SOUL, var35, var13 + var16[1], var23, 1, 0.03, 0.03, 0.03, 0.01);
+            }
+        }
+    }
+
+    private static void ear(
+        ShardV30Main var0,
+        World var1,
+        double var2,
+        double var4,
+        double var6,
+        double var8,
+        double[] var10,
+        double var11,
+        int var13,
+        double var14,
+        double var16,
+        float var18,
+        int var19,
+        int var20
+    ) {
+        var0.trans(var1, var2 + var6 * var13 * var14 - var10[0] * 0.05, var11 + var16, var4 + var8 * var13 * var14 - var10[1] * 0.05, var19, var20, var18);
     }
 }

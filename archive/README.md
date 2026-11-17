@@ -25,7 +25,8 @@ v10–v20 report version 1.8.1 in `plugin.yml`, so the file name is the only way
 | v26-handonly-hud-no-slowfall-jumpboost | 2.6.0 | 2026-11-14 |
 | v29-simple-names | 2.9.1 | 2026-11-16 |
 | v30-Particles-EmberCountdown-build1…4 | 3.0.0 | 2026-11-17 (four different builds, build4 newest) |
-| v31-ThickWings-MoreParticles | 3.0.0 | 2026-11-17 — **latest** |
+| v31-ThickWings-MoreParticles | 3.0.0 | 2026-11-17 13:07 |
+| v31-build2-EmberHorns-SculkEars | 3.0.0 | 2026-11-17 14:19 — **latest** (downloaded with the same name as v31) |
 
 ## resource-packs/
 - `shardsmp-v2-sculk` — older ShardSMP texture pack (10 shards). Replaced by `resource-packs/shardsmp`.
