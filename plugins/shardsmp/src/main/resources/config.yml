@@ -1,0 +1,168 @@
+# Set to true when your players are using the SuperhumanShard resource pack.
+# Shards you give out afterwards will use the custom textures. Shards that
+# already exist keep whatever look they were created with.
+# Set to false to use the normal vanilla item looks (no resource pack needed).
+use-custom-textures: true
+
+# ---- Starter shards ----
+# The first time a player joins they get ONE random shard from this pool.
+# The Dragon Shard is never given out - it can only be crafted.
+starter-shard:
+  enabled: false   # forced off by v2.4 - use /shardsmp start instead
+  pool:
+    - velocity
+    - titan
+    - tide
+    - phantom
+    - ember
+    - frost
+    - verdant
+    - storm
+    - sculk
+    - evoker
+
+# ---- Dragon Shard crafting ----
+# The Dragon Shard is the only craftable shard. Recipe: a single Dragon Egg
+# (just the egg, in any slot). It can be crafted ONE time on
+# the whole server. Use /shardrecipes reset dragon to unlock it again.
+# Set to false to allow unlimited Dragon Shard crafting.
+craft-once: true
+
+# Broadcast a message to everyone when the Dragon Shard is crafted.
+announce-crafts: true
+
+# ---- Custom shard items ----
+# Shards use their own textures from the ShardSMP resource pack, cannot stack,
+# and no longer act like the vanilla item underneath.
+# Give shards an enchanted shimmer so they stand out even without the pack.
+shard-glint: true
+
+# Send the ShardSMP resource pack to players when they join.
+# Upload ShardSMP-Resource-Pack.zip somewhere with a direct download link
+# (e.g. https://mc-packs.net), paste the link below, and paste the SHA-1 hash.
+# Leave url empty if you set the pack in server.properties instead.
+resource-pack:
+  url: ""
+  sha1: ""
+  required: false
+  prompt: "This server uses custom shard textures."
+
+# ---- Ember & Sculk abilities ----
+# Both shards have TWO abilities:
+#   /ability1             = ability 1
+#   /ability2             = ability 2
+# All cooldowns / durations are in seconds.
+abilities:
+  ember:
+    fireball-cooldown: 35      # ability 1: Fireball (hard cap 6 hearts)
+    blaze-cooldown: 35         # ability 2: Blaze Squad
+    blaze-count: 3             # blazes spawned per use
+    blaze-seconds: 15          # how long the blazes stay
+    blaze-damage-hearts: 0.5   # damage per blaze hit (0.5 = half a heart)
+    blaze-range: 24            # how far the blazes look for enemies
+    blaze-ignite: false        # true = blaze fireballs also set victims on fire
+    # --- Ember ability 2 is now Ember Arena (Blaze Squad is disabled; blaze-* settings above are unused) ---
+    # Teleports you and the nearest player within swap-radius blocks to swap-x/y/z, then sends both back
+    # after swap-seconds. If nobody is in range, nothing happens and the cooldown is not used.
+    swap-cooldown: 300         # seconds (5 minutes)
+    swap-seconds: 60           # how long until you are returned
+    swap-radius: 5             # how close the other player must be
+    swap-x: 1970
+    swap-y: -55
+    swap-z: 1890
+    swap-world: ""             # empty = the main overworld
+  sculk:
+    beam-cooldown: 35          # ability 1: Supersonic Beam
+    beam-damage-hearts: 6      # max damage of the beam (6 hearts)
+    beam-range: 24             # blocks
+    track-cooldown: 35         # ability 2: Sculk Tracker
+    track-seconds: 30          # how long tracking lasts once activated
+    notify-target: false       # true = tracked player gets an action-bar warning
+
+  # ---- Dragon shard: ability 2 (/ability2) ----
+  # Ability 1 is still Dragon Scales (/ability1).
+  dragon:
+    breath-cooldown: 30          # Dragon's Breath cooldown (starts when the breath ends)
+    breath-seconds: 4            # how long the breath lasts
+    breath-damage-hearts: 0.75   # damage every 0.5 sec to anyone inside it (goes through armor)
+    breath-hits-mobs: false      # false = players only, true = mobs too
+
+  # ---- Evoker shard ----
+  #   Passive               = every hit on a player has a chance to Blind + Slow them
+  #   /ability1             = ability 1: Immortality (Resistance V)
+  #   /ability2             = ability 2: Evoker Fangs
+  evoker:
+    curse-chance-percent: 15     # chance per hit on a player
+    curse-seconds: 5             # Blindness + Slowness II duration
+    immortality-seconds: 3       # Resistance V duration
+    immortality-cooldown: 45     # starts when Immortality ends
+    fangs-cooldown: 35           # starts when the fangs finish
+    fang-damage-hearts: 5        # hurts each target ONCE per cast, however many fangs touch them
+
+# Used by the plugin to upgrade older config files once. Leave this alone.
+config-version: 22
+
+# ---- Reroller (v2.3) ----
+# Craft: 4 Iron Blocks + 4 Gold Blocks + 1 Diamond Block (shapeless, any slot). Right-click to reroll your shard into a
+# different random one. Item is a nether star with custom_model_data 771012 (see resource pack v4).
+reroller:
+  enabled: true
+  craftable: true
+  # Shards that can be rerolled AND rolled into. Evoker, Dragon, Ember and Sculk are left out.
+  # (Dragon is always excluded, even if listed.) Restart the server after changing craftable.
+  pool:
+    - velocity
+    - titan
+    - tide
+    - phantom
+    - frost
+    - verdant
+    - storm
+
+# ---- Player heads (v2.3) ----
+player-heads:
+  drop-on-death: true   # players drop their own head when they die
+  pvp-only: false       # true = only when killed by another player
+
+# ---- Shard tiers (normal shards: velocity, titan, tide, phantom, frost, verdant, storm) ----
+# Tier 2 = second ability (/ability2). Tier 3 = permanent buff while carrying the shard.
+# Every kill must be a DIFFERENT player.
+tiers:
+  tier2-kills: 5
+  tier3-kills: 10
+  # 0 = tier 3 needs 10 different victims in total (the first 5 count).
+  # 1 = tier 3 needs 10 MORE different victims after reaching tier 2.
+  reset-victims-on-upgrade: 0
+  cooldown-seconds:
+    velocity: 20
+    titan: 25
+    tide: 25
+    phantom: 30
+    frost: 30
+    verdant: 40
+    storm: 30
+
+# ---- Custom particles (Bliss-style) ----
+# Shard particles are drawn as coloured dust in each shard's own palette
+# (like BlissGems) instead of the vanilla particles. Explosions, sonic boom
+# and block debris stay vanilla. Changes apply within ~5 seconds of a reload/restart.
+custom-particles: true
+custom-particle-size: 1.1   # dust size: 0.6 (tiny) - 2.0 (chunky)
+
+# ---- Speed Shard (v2.9) ----
+# A normal shard (tiers by killing different players, kept on death).
+#   Passive (carrying it)   : Speed <speed-level> at Tier 1 and 2
+#   Tier 1  - /ability1     : Dash (launches you forward, no fall damage for a few seconds)
+#   Tier 2  - /ability2     : Speed Surge (short, very strong Speed boost)
+#   Tier 3  - permanent     : Speed <tier3-speed-level> + Haste <tier3-haste-level>
+# Give it with /shard speed [1|2|3] [player]. Levels are the in-game numbers (2 = Speed II).
+# Needs the updated resource pack (v5) for its custom texture.
+speed-shard:
+  speed-level: 2          # Tier 1 and 2 passive
+  tier3-speed-level: 3    # Tier 3 Speed
+  tier3-haste-level: 3    # Tier 3 Haste
+  dash-cooldown: 20       # ability 1, seconds
+  dash-strength: 1.8      # how hard the dash launches you (1.0 = short hop, 2.5 = very far)
+  surge-cooldown: 30      # ability 2, seconds
+  surge-seconds: 6        # how long Speed Surge lasts
+  surge-speed-level: 5    # Speed level during the surge (5 = Speed V)

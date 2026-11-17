@@ -1,5 +1,5 @@
 # Archive
-Old builds kept for reference. These are compiled jars only — the original source code was not saved.
+Old builds kept for reference. These are compiled jars only. The latest (v31) was decompiled into `plugins/shardsmp`, which is now the source of truth.
 Exact duplicate downloads were removed; nothing else was changed.
 
 ## shardsmp/

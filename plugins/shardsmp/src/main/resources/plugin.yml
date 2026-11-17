@@ -1,0 +1,48 @@
+name: SuperhumanShard
+version: '${version}'
+main: com.example.superhumanshard.ShardV30Main
+api-version: '1.21'
+author: YourName
+description: Twelve shards (v2.9 adds the Speed Shard). Abilities are activated with /ability1 and /ability2. Starter shards are bound to their owner. Players start without a shard; /shardsmp start hands them out. The Dragon Shard can only be crafted, once per server.
+commands:
+  ember:
+    description: Ember shard countdown (ops only) - spawns the sprite at the given block and starts the 20 min countdown.
+    usage: /ember shard countdown start <x> <y> <z> [world]
+    aliases: [embershard]
+    permission: superhumanshard.embercountdown
+  shard:
+    description: Give yourself or another player a Superhuman Shard.
+    usage: /shard <velocity|titan|tide|phantom|ember|dragon|frost|verdant|storm|sculk|evoker|speed|reroller|all> [1|2|3] [player]
+    permission: superhumanshard.admin
+  shardrecipes:
+    description: View or reset whether the Dragon Shard has been crafted.
+    usage: /shardrecipes [status | reset <dragon|all>]
+    permission: superhumanshard.admin
+  shardsmp:
+    description: Start the SMP - gives every online player a random starter shard at the chosen tier, and anyone who joins later too.
+    usage: /shardsmp <start <1|2|3> | stop>
+    permission: superhumanshard.admin
+  ability:
+    description: Use a shard ability (1 = first ability, 2 = second ability).
+    usage: /ability <1|2> [shard]
+    permission: superhumanshard.use
+  ability1:
+    description: Use your shard's first ability.
+    usage: /ability1 [shard]
+    aliases: [a1]
+    permission: superhumanshard.use
+  ability2:
+    description: Use your shard's second ability (normal shards need Tier 2).
+    usage: /ability2 [shard]
+    aliases: [a2]
+    permission: superhumanshard.use
+permissions:
+  superhumanshard.embercountdown:
+    description: Lets operators start the Ember Shard countdown.
+    default: op
+  superhumanshard.use:
+    description: Allows using shard abilities with /ability1 and /ability2.
+    default: true
+  superhumanshard.admin:
+    description: Allows giving Superhuman Shards and resetting shard recipes.
+    default: op
