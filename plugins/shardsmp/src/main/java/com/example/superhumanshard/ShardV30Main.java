@@ -45,9 +45,10 @@ public class ShardV30Main extends ShardV29Main {
     private World cw;
     private Player cOwner;
     private final List<Player> cViewers = new ArrayList<>();
-    private double eyeX;
+    double eyeX;
     double eyeY;
-    private double eyeZ;
+    double eyeZ;
+    float bodyYaw;
     double lookX;
     private double lookY;
     double lookZ;
@@ -556,7 +557,6 @@ public class ShardV30Main extends ShardV29Main {
     private void dragon(World var1, double var2, double var4, double var6, double var8, double var10) {
         ShardV30Fx.wings(this, var1, var2, var4, var6, var8);
         this.helix(var1, var2, var4, var6, var10, 2, 0.65, 2.3, 0.05, 11796735, 16743423, 1.0F, null);
-        this.rune(var1, var2, var4, var6, var10 * 0.5, 1.2, 16, 10092774, 16751615, 0.9F);
         if (this.tick % 4L == 0L) {
             this.fx(var1, Particle.END_ROD, var2, var4 + 0.7, var6, 1, 0.6, 0.6, 0.6, 0.01);
             this.fx(var1, Particle.PORTAL, var2, var4 + 0.7, var6, 6, 0.5, 0.6, 0.5, 0.5);
@@ -614,63 +614,6 @@ public class ShardV30Main extends ShardV29Main {
                     }
                 }
             }
-        }
-    }
-
-    void ember(World var1, double var2, double var4, double var6, double var8) {
-        this.helix(var1, var2, var4, var6, var8, 3, 0.6, 2.2, 0.045, 16734720, 16762954, 1.0F, Particle.FLAME);
-
-        for (int var10 = 0; var10 < 3; var10++) {
-            double var11 = this.tick * 0.16 + var10 * (Math.PI * 2.0 / 3.0);
-            double var13 = var4 + 1.0 + Math.sin(this.tick * 0.1 + var10 * 2.1) * 0.35;
-
-            for (int var15 = 0; var15 < 4; var15++) {
-                double var16 = var11 - var15 * 0.22;
-                double var18 = var2 + Math.cos(var16) * 0.95;
-                double var20 = var6 + Math.sin(var16) * 0.95;
-                if (var15 == 0) {
-                    this.fx(var1, Particle.FLAME, var18, var13, var20, 2, 0.04, 0.04, 0.04, 0.0);
-                    this.trans(var1, var18, var13, var20, 16726528, 16765562, 1.5F);
-                } else {
-                    this.trans(var1, var18, var13, var20, 16738816, 16722432, 1.1F - var15 * 0.2F);
-                }
-            }
-        }
-
-        this.rune(var1, var2, var4, var6, -var8 * 0.7, 1.15, 14, 16726528, 16757575, 0.9F);
-        this.fx(var1, Particle.SMALL_FLAME, var2, var4 + 0.2, var6, 2, 0.35, 0.1, 0.35, 0.03);
-        if (this.tick % 12L == 0L) {
-            this.fx(var1, Particle.LAVA, var2, var4 + 0.7, var6, 1, 0.5, 0.3, 0.5, 0.0);
-        }
-    }
-
-    void sculk(World var1, double var2, double var4, double var6, double var8) {
-        for (int var10 = 0; var10 < 2; var10++) {
-            double var11 = var10 == 0 ? 0.0 : Math.PI / 2;
-            double var13 = var10 == 0 ? 0.9 : -0.9;
-            double var15 = var8 * (var10 == 0 ? 1.4 : -1.4);
-
-            for (int var17 = 0; var17 < 10; var17++) {
-                double var18 = var15 + var17 * (Math.PI / 5);
-                double[] var20 = ringPoint(0.95, var18, var13, var11);
-                this.trans(var1, var2 + var20[0], var4 + 1.1 + var20[1], var6 + var20[2], 2418384, 669008, 1.0F);
-            }
-        }
-
-        this.fx(var1, Particle.SCULK_SOUL, var2, var4 + 0.1, var6, 1, 0.35, 0.1, 0.35, 0.03);
-        int var21 = (int)(this.tick % 60L);
-        if (var21 < 24) {
-            double var22 = var21 / 24.0 * 2.6;
-
-            for (int var23 = 0; var23 < 16; var23++) {
-                double var14 = var23 * (Math.PI / 8);
-                this.trans(var1, var2 + Math.cos(var14) * var22, var4 + 0.08, var6 + Math.sin(var14) * var22, 4190944, 403516, 1.1F);
-            }
-        }
-
-        this.rune(var1, var2, var4, var6, var8 * 0.6, 1.0, 10, 1820856, 669008, 0.8F);
-        if (this.tick % 10L == 0L) {
-            this.fx(var1, Particle.SOUL, var2, var4 + 0.5, var6, 1, 0.4, 0.5, 0.4, 0.01);
         }
     }
 
@@ -738,16 +681,6 @@ public class ShardV30Main extends ShardV29Main {
         }
     }
 
-    private static double[] ringPoint(double var0, double var2, double var4, double var6) {
-        double var8 = var0 * Math.cos(var2);
-        double var10 = var0 * Math.sin(var2);
-        double var12 = -var10 * Math.sin(var4);
-        double var14 = var10 * Math.cos(var4);
-        double var16 = var8 * Math.cos(var6) + var14 * Math.sin(var6);
-        double var18 = -var8 * Math.sin(var6) + var14 * Math.cos(var6);
-        return new double[]{var16, var12, var18};
-    }
-
     private void setContext(Player var1, World var2, double var3, double var5, double var7) {
         this.cw = var2;
         this.cOwner = var1;
@@ -778,6 +711,7 @@ public class ShardV30Main extends ShardV29Main {
         this.lookX = -Math.sin(var19) * Math.cos(var20);
         this.lookY = -Math.sin(var20);
         this.lookZ = Math.cos(var19) * Math.cos(var20);
+        this.bodyYaw = var1.getBodyYaw();
     }
 
     private boolean blocksOwnerView(double var1, double var3, double var5) {

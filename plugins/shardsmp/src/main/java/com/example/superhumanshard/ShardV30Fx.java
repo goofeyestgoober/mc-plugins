@@ -74,160 +74,157 @@ final class ShardV30Fx {
         }
     }
 
-    static void ember(ShardV30Main var0, World var1, double var2, double var4, double var6, double var8) {
-        var0.ember(var1, var2, var4, var6, var8);
-        long var10 = var0.tick;
-        var0.rune(var1, var2, var4, var6, var8 * 0.45, 1.55, 22, 16734720, 16765562, 0.8F);
-        var0.helix(var1, var2, var4, var6, -var8 * 1.3, 2, 0.8, 2.1, 0.06, 16747008, 16769162, 1.0F, Particle.SMALL_FLAME);
-        horns(var0, var1, var2, var6, var10);
+    // ---------------------------------------------------------------------
+    // Ember: demon horns growing out of the top of the head, plus loose fire.
+    // No rings or halos.
+    // ---------------------------------------------------------------------
+    static void ember(ShardV30Main fx, World world, double x, double y, double z, double spin) {
+        long tick = fx.tick;
+        Head head = Head.of(fx);
+        demonHorns(fx, world, head, tick);
 
-        for (int var12 = 0; var12 < 4; var12++) {
-            double var13 = var8 * 0.8 + var12 * (Math.PI / 2);
-            double var15 = (var10 * 0.05 + var12 * 0.5) % 2.0;
-            double var17 = var2 + Math.cos(var13) * 0.95;
-            double var19 = var6 + Math.sin(var13) * 0.95;
-            var0.trans(var1, var17, var4 + 0.1 + var15, var19, 16734720, 16762954, 0.9F);
-            var0.trans(var1, var17, var4 + 0.1 + var15 * 0.9 - 0.12, var19, 16726528, 16757575, 0.6F);
+        if (tick % 4L == 0L) {
+            fx.fx(world, Particle.FLAME, x, y + 1.0, z, 2, 0.35, 0.6, 0.35, 0.01);
         }
-
-        if (var10 % 4L == 0L) {
-            var0.fx(var1, Particle.FLAME, var2, var4 + 1.0, var6, 3, 0.6, 0.9, 0.6, 0.02);
+        if (tick % 6L == 0L) {
+            fx.fx(world, Particle.SMALL_FLAME, x, y + 0.2, z, 2, 0.35, 0.1, 0.35, 0.02);
         }
-
-        if (var10 % 6L == 0L) {
-            var0.fx(var1, Particle.SMALL_FLAME, var2, var4 + 2.35, var6, 2, 0.45, 0.1, 0.45, 0.03);
+        if (tick % 12L == 0L) {
+            fx.fx(world, Particle.LAVA, x, y + 0.7, z, 1, 0.4, 0.3, 0.4, 0.0);
         }
     }
 
-    static void sculk(ShardV30Main var0, World var1, double var2, double var4, double var6, double var8) {
-        var0.sculk(var1, var2, var4, var6, var8);
-        long var10 = var0.tick;
-        var0.rune(var1, var2, var4, var6, -var8 * 0.5, 1.5, 22, 1820856, 669008, 0.8F);
-        var0.helix(var1, var2, var4, var6, var8 * 1.2, 2, 0.7, 2.2, 0.04, 4190944, 403516, 1.0F, Particle.SCULK_SOUL);
-        ears(var0, var1, var2, var6, var10);
+    // ---------------------------------------------------------------------
+    // Sculk: Warden ears sticking out of the sides of the head, plus soul wisps.
+    // No rings or halos.
+    // ---------------------------------------------------------------------
+    static void sculk(ShardV30Main fx, World world, double x, double y, double z, double spin) {
+        long tick = fx.tick;
+        Head head = Head.of(fx);
+        wardenEars(fx, world, head, tick);
 
-        for (int var12 = 0; var12 < 4; var12++) {
-            double var13 = -var8 * 0.7 + var12 * (Math.PI / 2);
-            double var15 = (var10 * 0.04 + var12 * 0.5) % 2.0;
-            double var17 = var2 + Math.cos(var13) * 1.0;
-            double var19 = var6 + Math.sin(var13) * 1.0;
-            var0.trans(var1, var17, var4 + 0.1 + var15, var19, 2418384, 403516, 0.9F);
-            var0.trans(var1, var17, var4 + 0.1 + var15 * 0.9 - 0.12, var19, 1820856, 669008, 0.6F);
+        if (tick % 6L == 0L) {
+            fx.fx(world, Particle.SCULK_SOUL, x, y + 0.15, z, 1, 0.35, 0.1, 0.35, 0.02);
         }
-
-        if (var10 % 4L == 0L) {
-            var0.fx(var1, Particle.SOUL, var2, var4 + 1.0, var6, 2, 0.6, 0.9, 0.6, 0.02);
-        }
-
-        if (var10 % 6L == 0L) {
-            var0.fx(var1, Particle.SCULK_SOUL, var2, var4 + 1.4, var6, 2, 0.5, 0.7, 0.5, 0.03);
+        if (tick % 10L == 0L) {
+            fx.fx(world, Particle.SOUL, x, y + 0.9, z, 1, 0.4, 0.5, 0.4, 0.01);
         }
     }
 
-    private static double[] facing(ShardV30Main var0) {
-        double var1 = var0.lookX;
-        double var3 = var0.lookZ;
-        double var5 = Math.sqrt(var1 * var1 + var3 * var3);
-        return var5 < 0.05 ? new double[]{0.0, 1.0} : new double[]{var1 / var5, var3 / var5};
-    }
+    // Colors (RGB hex)
+    private static final int HORN_BASE = 0x3A0000;      // near-black red
+    private static final int HORN_BASE_FADE = 0x8B0000; // dark red
+    private static final int HORN_TIP = 0xFF5A00;       // glowing orange
+    private static final int HORN_TIP_FADE = 0xFFD24A;  // yellow
+    private static final int EAR_GLOW = 0x29DFEB;       // Warden cyan
+    private static final int EAR_GLOW_FADE = 0x0A6E7A;
+    private static final int EAR_EDGE = 0x0B3B4A;       // Warden dark teal
+    private static final int EAR_EDGE_FADE = 0x06283C;
 
-    private static void horns(ShardV30Main var0, World var1, double var2, double var4, long var6) {
-        double[] var8 = facing(var0);
-        double var9 = -var8[1];
-        double var11 = var8[0];
-        double var13 = var0.eyeY + 0.12;
-
-        for (byte var15 = -1; var15 <= 1; var15 += 2) {
-            double var16 = 0.0;
-            double var18 = 0.0;
-            double var20 = 0.0;
-
-            for (int var22 = 0; var22 <= 14; var22++) {
-                double var23 = var22 / 14.0;
-                double var25 = 0.2 + 0.34 * Math.sin(var23 * Math.PI * 0.75);
-                double var27 = 0.72 * var23;
-                double var29 = 0.06 - 0.2 * var23 * var23;
-                double var31 = var2 + var9 * var15 * var25 + var8[0] * var29;
-                double var33 = var4 + var11 * var15 * var25 + var8[1] * var29;
-                double var35 = var13 + var27;
-                float var37 = (float)(1.8 - 1.1 * var23);
-                boolean var38 = var23 > 0.7;
-                int var39 = var38 ? 16738816 : 9048064;
-                int var40 = var38 ? 16765562 : 16730624;
-                var0.trans(var1, var31, var35, var33, var39, var40, var37);
-                if (var23 < 0.65) {
-                    var0.trans(var1, var31 + var8[0] * 0.07, var35, var33 + var8[1] * 0.07, 9048064, 16726528, var37 * 0.8F);
-                }
-
-                if (var22 == 14) {
-                    var16 = var31;
-                    var18 = var35;
-                    var20 = var33;
-                }
+    /**
+     * Where the player's head is and which way it faces (horizontally).
+     * All offsets below are in blocks, measured from the eyes:
+     * side = toward the right ear (+) or left ear (-), up = above the eyes, forward = toward the face.
+     * A player's head is ~0.47 blocks wide and tall; it spans from ~0.21 below the eyes to ~0.26 above them.
+     */
+    private record Head(double x, double y, double z, double fwdX, double fwdZ) {
+        static Head of(ShardV30Main fx) {
+            double lx = fx.lookX;
+            double lz = fx.lookZ;
+            double len = Math.sqrt(lx * lx + lz * lz);
+            if (len < 0.05) { // looking straight up/down: fall back to body yaw
+                double yaw = Math.toRadians(fx.bodyYaw);
+                lx = -Math.sin(yaw);
+                lz = Math.cos(yaw);
+                len = 1.0;
             }
+            return new Head(fx.eyeX, fx.eyeY, fx.eyeZ, lx / len, lz / len);
+        }
 
-            if (var6 % 4L == 0L) {
-                var0.fx(var1, Particle.SMALL_FLAME, var16, var18 + 0.05, var20, 1, 0.02, 0.02, 0.02, 0.005);
-            }
+        double[] at(double side, double up, double forward) {
+            double rightX = -fwdZ;
+            double rightZ = fwdX;
+            return new double[]{x + rightX * side + fwdX * forward, y + up, z + rightZ * side + fwdZ * forward};
         }
     }
 
-    private static void ears(ShardV30Main var0, World var1, double var2, double var4, long var6) {
-        double[] var8 = facing(var0);
-        double var9 = -var8[1];
-        double var11 = var8[0];
-        double var13 = var0.eyeY;
-        double[] var15 = new double[]{0.28, 0.14};
-        double[] var16 = new double[]{1.1, 0.52};
-        double[] var17 = new double[]{0.28, -0.26};
-        double[] var18 = new double[]{0.72, 0.52};
-        double[] var19 = new double[]{0.92, 0.02};
-
-        for (byte var20 = -1; var20 <= 1; var20 += 2) {
-            for (int var21 = 0; var21 <= 9; var21++) {
-                double var22 = var21 / 9.0;
-                double var24 = 1.0 - var22;
-                double var26 = var24 * var24 * var15[0] + 2.0 * var24 * var22 * var18[0] + var22 * var22 * var16[0];
-                double var28 = var24 * var24 * var15[1] + 2.0 * var24 * var22 * var18[1] + var22 * var22 * var16[1];
-                double var30 = var24 * var24 * var16[0] + 2.0 * var24 * var22 * var19[0] + var22 * var22 * var17[0];
-                double var32 = var24 * var24 * var16[1] + 2.0 * var24 * var22 * var19[1] + var22 * var22 * var17[1];
-                ear(var0, var1, var2, var4, var9, var11, var8, var13, var20, var26, var28, 1.0F, 4190944, 403516);
-                if (var21 > 0) {
-                    ear(var0, var1, var2, var4, var9, var11, var8, var13, var20, var30, var32, 1.0F, 4190944, 403516);
+    /** Two curved demon horns rising from the top front corners of the head, sweeping out, up and back. */
+    private static void demonHorns(ShardV30Main fx, World world, Head head, long tick) {
+        final int points = 12;
+        for (int sideSign = -1; sideSign <= 1; sideSign += 2) {
+            double[] tip = null;
+            for (int i = 0; i <= points; i++) {
+                double t = i / (double) points;              // 0 = base, 1 = tip
+                double side = 0.14 + 0.17 * t - 0.05 * t * t; // spreads outward, easing in at the tip
+                double up = 0.24 + 0.38 * t - 0.05 * t * t;   // grows out of the top of the head
+                double forward = 0.06 - 0.24 * t * t;         // starts near the front, curls back toward the tip
+                double[] p = head.at(sideSign * side, up, forward);
+                float size = (float) (1.6 - 1.05 * t);        // thick base, sharp tip
+                boolean nearTip = t > 0.7;
+                fx.trans(world, p[0], p[1], p[2],
+                        nearTip ? HORN_TIP : HORN_BASE,
+                        nearTip ? HORN_TIP_FADE : HORN_BASE_FADE, size);
+                if (t < 0.5) { // thicken the base
+                    double[] q = head.at(sideSign * (side + 0.04), up, forward - 0.03);
+                    fx.trans(world, q[0], q[1], q[2], HORN_BASE, HORN_BASE_FADE, size * 0.85F);
+                }
+                if (i == points) {
+                    tip = p;
                 }
             }
-
-            for (int var34 = 1; var34 <= 6; var34++) {
-                double var36 = var34 / 6.0;
-                double var37 = 0.28 + (var16[0] - 0.28) * var36;
-                double var38 = -0.06 + (var16[1] + 0.06) * var36;
-                ear(var0, var1, var2, var4, var9, var11, var8, var13, var20, var37, var38, 0.7F, 1820856, 669008);
-            }
-
-            if (var6 % 4L == 0L) {
-                double var35 = var2 + var9 * var20 * var16[0] - var8[0] * 0.05;
-                double var23 = var4 + var11 * var20 * var16[0] - var8[1] * 0.05;
-                var0.fx(var1, Particle.SCULK_SOUL, var35, var13 + var16[1], var23, 1, 0.03, 0.03, 0.03, 0.01);
+            if (tip != null && tick % 4L == 0L) {
+                fx.fx(world, Particle.SMALL_FLAME, tip[0], tip[1] + 0.04, tip[2], 1, 0.01, 0.01, 0.01, 0.003);
             }
         }
     }
 
-    private static void ear(
-        ShardV30Main var0,
-        World var1,
-        double var2,
-        double var4,
-        double var6,
-        double var8,
-        double[] var10,
-        double var11,
-        int var13,
-        double var14,
-        double var16,
-        float var18,
-        int var19,
-        int var20
-    ) {
-        var0.trans(var1, var2 + var6 * var13 * var14 - var10[0] * 0.05, var11 + var16, var4 + var8 * var13 * var14 - var10[1] * 0.05, var19, var20, var18);
+    /**
+     * Two Warden ears: flat, pointed fins coming out of the upper sides of the head,
+     * angled outward and slightly up. Dark teal outline with a glowing cyan middle.
+     */
+    private static void wardenEars(ShardV30Main fx, World world, Head head, long tick) {
+        // ear shape in (side, up) from the eyes; forward is fixed slightly behind the eyes
+        final double baseSide = 0.24;   // the side of the head
+        final double baseTop = 0.20;
+        final double baseBottom = -0.02;
+        final double tipSide = 0.72;
+        final double tipUp = 0.32;
+        final double forward = -0.02;
+        final int points = 8;
+
+        // glowing pulse, like the Warden's ears when it hears something
+        float pulse = (float) (0.85 + 0.25 * Math.sin(tick * 0.15));
+
+        for (int sideSign = -1; sideSign <= 1; sideSign += 2) {
+            for (int i = 0; i <= points; i++) {
+                double t = i / (double) points;
+                // top edge: from top of base, bulging up, to the tip
+                double topSide = lerp(baseSide, tipSide, t);
+                double topUp = lerp(baseTop, tipUp, t) + 0.08 * Math.sin(t * Math.PI);
+                // bottom edge: from bottom of base, sagging slightly, to the tip
+                double botSide = lerp(baseSide, tipSide, t);
+                double botUp = lerp(baseBottom, tipUp, t) - 0.03 * Math.sin(t * Math.PI);
+                double[] a = head.at(sideSign * topSide, topUp, forward);
+                double[] b = head.at(sideSign * botSide, botUp, forward);
+                fx.trans(world, a[0], a[1], a[2], EAR_EDGE, EAR_EDGE_FADE, 1.0F);
+                if (i > 0 && i < points) {
+                    fx.trans(world, b[0], b[1], b[2], EAR_EDGE, EAR_EDGE_FADE, 1.0F);
+                }
+                // glowing middle
+                if (i > 0 && i < points) {
+                    double midUp = (topUp + botUp) / 2.0;
+                    double[] m = head.at(sideSign * topSide, midUp, forward);
+                    fx.trans(world, m[0], m[1], m[2], EAR_GLOW, EAR_GLOW_FADE, 0.9F * pulse);
+                }
+            }
+            if (tick % 6L == 0L) {
+                double[] tip = head.at(sideSign * tipSide, tipUp, forward);
+                fx.fx(world, Particle.SCULK_SOUL, tip[0], tip[1], tip[2], 1, 0.02, 0.02, 0.02, 0.005);
+            }
+        }
+    }
+
+    private static double lerp(double from, double to, double t) {
+        return from + (to - from) * t;
     }
 }
