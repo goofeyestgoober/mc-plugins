@@ -15,12 +15,12 @@ dependencies {
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(25)
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
 }
 
 tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
-    options.release = 25
+    options.release = 21
 }
 
 // Fills ${version} etc. into plugin.yml so the jar version is set in one place.

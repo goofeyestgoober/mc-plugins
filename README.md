@@ -2,7 +2,7 @@
 A collection of Minecraft server plugins for pupur, built against the [Purpur](https://purpurmc.org) API.
 
 ## Requirements
-- **JDK 25** (Minecraft 26.x / Purpur 26.3 requires Java 25)
+- **JDK 21** (the server runs Minecraft / Purpur 1.21.11)
 - Nothing else — the Gradle wrapper (`./gradlew`) downloads Gradle for you.
 
 ## Build
@@ -22,6 +22,9 @@ plugins/
     src/main/resources/plugin.yml
 buildSrc/             # shared build config (Java version, Purpur API, repos)
 gradle.properties     # Purpur API version + plugin version
+resource-packs/       # resource packs that go with the plugins
+branding/             # logos and art
+archive/              # old plugin builds and packs, kept for reference
 ```
 
 ## Adding a new plugin
@@ -30,7 +33,7 @@ gradle.properties     # Purpur API version + plugin version
 3. Run `./gradlew build` — new folders are picked up automatically.
 
 ## Updating Minecraft/Purpur
-Bump `purpurVersion` in `gradle.properties` (and `api-version` in each `plugin.yml` for a new major version).
+Bump `purpurVersion` in `gradle.properties` (and `api-version` in each `plugin.yml` when moving to a new major version, e.g. 26.x, which also needs Java 25).
 Available versions: https://repo.purpurmc.org/snapshots/org/purpurmc/purpur/purpur-api/
 
 ## CI
