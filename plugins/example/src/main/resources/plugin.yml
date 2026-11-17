@@ -1,0 +1,13 @@
+name: Example
+version: '${version}'
+main: net.pupur.example.ExamplePlugin
+api-version: '26.3'
+description: Example plugin - copy this folder to start a new plugin.
+commands:
+  hello:
+    description: Says hello.
+    usage: /<command>
+    permission: example.hello
+permissions:
+  example.hello:
+    default: true
