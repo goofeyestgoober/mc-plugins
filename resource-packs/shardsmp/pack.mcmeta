@@ -1,0 +1,18 @@
+{
+  "pack": {
+    "description": "Superhuman Shards - 11 gem textures for the plugin (Minecraft 1.21.11)",
+    "pack_format": 75,
+    "supported_formats": [
+      34,
+      1000
+    ],
+    "min_format": [
+      34,
+      0
+    ],
+    "max_format": [
+      1000,
+      0
+    ]
+  }
+}
