@@ -1,0 +1,83 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "property": "minecraft:custom_model_data",
+    "index": 0,
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/turtle_scute"
+    },
+    "entries": [
+      {
+        "threshold": 771001,
+        "model": {
+          "type": "minecraft:model",
+          "model": "superhumanshard:item/velocity_shard"
+        }
+      },
+      {
+        "threshold": 771002,
+        "model": {
+          "type": "minecraft:model",
+          "model": "superhumanshard:item/titan_shard"
+        }
+      },
+      {
+        "threshold": 771003,
+        "model": {
+          "type": "minecraft:model",
+          "model": "superhumanshard:item/tide_shard"
+        }
+      },
+      {
+        "threshold": 771004,
+        "model": {
+          "type": "minecraft:model",
+          "model": "superhumanshard:item/phantom_shard"
+        }
+      },
+      {
+        "threshold": 771005,
+        "model": {
+          "type": "minecraft:model",
+          "model": "superhumanshard:item/ember_shard"
+        }
+      },
+      {
+        "threshold": 771006,
+        "model": {
+          "type": "minecraft:model",
+          "model": "superhumanshard:item/dragon_shard"
+        }
+      },
+      {
+        "threshold": 771007,
+        "model": {
+          "type": "minecraft:model",
+          "model": "superhumanshard:item/frost_shard"
+        }
+      },
+      {
+        "threshold": 771008,
+        "model": {
+          "type": "minecraft:model",
+          "model": "superhumanshard:item/verdant_shard"
+        }
+      },
+      {
+        "threshold": 771009,
+        "model": {
+          "type": "minecraft:model",
+          "model": "superhumanshard:item/storm_shard"
+        }
+      },
+      {
+        "threshold": 771010,
+        "model": {
+          "type": "minecraft:model",
+          "model": "superhumanshard:item/sculk_shard"
+        }
+      }
+    ]
+  }
+}

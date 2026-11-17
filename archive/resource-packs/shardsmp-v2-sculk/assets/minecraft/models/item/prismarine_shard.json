@@ -1,0 +1,68 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:item/prismarine_shard"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 771001
+      },
+      "model": "superhumanshard:item/velocity_shard"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 771002
+      },
+      "model": "superhumanshard:item/titan_shard"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 771003
+      },
+      "model": "superhumanshard:item/tide_shard"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 771004
+      },
+      "model": "superhumanshard:item/phantom_shard"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 771005
+      },
+      "model": "superhumanshard:item/ember_shard"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 771006
+      },
+      "model": "superhumanshard:item/dragon_shard"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 771007
+      },
+      "model": "superhumanshard:item/frost_shard"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 771008
+      },
+      "model": "superhumanshard:item/verdant_shard"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 771009
+      },
+      "model": "superhumanshard:item/storm_shard"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 771010
+      },
+      "model": "superhumanshard:item/sculk_shard"
+    }
+  ]
+}

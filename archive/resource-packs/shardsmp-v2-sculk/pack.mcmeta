@@ -1,0 +1,18 @@
+{
+  "pack": {
+    "description": "Superhuman Shards - 10 gem textures for the plugin",
+    "pack_format": 34,
+    "supported_formats": [
+      34,
+      1000
+    ],
+    "min_format": [
+      34,
+      0
+    ],
+    "max_format": [
+      1000,
+      0
+    ]
+  }
+}
